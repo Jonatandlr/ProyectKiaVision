@@ -37,7 +37,7 @@ while True:
 cv2.imshow("Lector de QR",frame)
 
 #leemos el teclado
-t=cv2.waitKey(5)
+t = cv2.waitKey(5)
 if t == 27:
    break
 cv2.destroyAllWindows()
