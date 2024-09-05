@@ -1,4 +1,4 @@
-from CameraModules.CameraControllerModule import CameraController
+from CameraModules import CameraController
 
 def main():
     camera_controller = CameraController()
