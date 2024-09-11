@@ -9,7 +9,7 @@ from utils.calculate_iou import calculate_iou
 qreader = QReader(model_size='n', min_confidence=0.2, reencode_to='utf-8')
 
 # Ruta a la máscara
-MASK_PATH = "./images/paterns/MASKITA.png"
+MASK_PATH = "./images/paterns/mask.png"
 
 # Lee la máscara en escala de grises
 mask = cv2.imread(MASK_PATH, cv2.IMREAD_GRAYSCALE)
@@ -23,6 +23,8 @@ spots = get_Parking_spots_boxes(connectedComponents)
 # print(spots)
 
 cap = cv2.VideoCapture(3)
+# cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+# cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 while True:
     # Captura un frame
     ret, frame = cap.read()
@@ -99,8 +101,6 @@ while True:
           
             # counter+=1
                 
-
-
     # Dibuja los cuadros de estacionamiento
     for spot in resized_spots:
         spot_x1, spot_y1, spot_x2, spot_y2 = spot
