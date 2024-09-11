@@ -1,6 +1,6 @@
 import cv2
 import time
-from pruebas import preprocess_image
+from preprocessFrame import preprocess_image
 
 # Abre la cámara (3 en este caso, puede ser diferente dependiendo del sistema)
 cap = cv2.VideoCapture(3)
@@ -13,8 +13,8 @@ cap = cv2.VideoCapture(3)
 # cap.set(cv2.CAP_PROP_BRIGHTNESS, 1)   # Ajustar el brillo (0.0 a 1.0, el rango puede variar según la cámara)
 # cap.set(cv2.CAP_PROP_CONTRAST, 0.5)     # Ajustar el contraste (0.0 a 1.0, el rango puede variar según la cámara)
 # Ajustar la resolución de la cámara
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+# cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+# cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
 # Ajustar otros parámetros
 # cap.set(cv2.CAP_PROP_BRIGHTNESS, 0.3)
@@ -41,11 +41,11 @@ for i in range(8):
 print("Foto tomada")
 if ret:
     # Define el nombre de la imagen a guardar
-    image_name = "areaWithCodesWyB.png"
-    framecito=preprocess_image(frame)
+    image_name = "zonePrueba.png"
+    # framecito=preprocess_image(frame)
     
     # Guarda la imagen en el disco
-    cv2.imwrite(image_name, framecito)
+    cv2.imwrite(image_name, frame)
     print(f"Foto guardada como {image_name}")
 
 else:

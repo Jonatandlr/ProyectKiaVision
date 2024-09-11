@@ -9,16 +9,18 @@ from utils.calculate_iou import calculate_iou
 qreader = QReader(model_size='n', min_confidence=0.2, reencode_to='utf-8')
 
 # Ruta a la máscara
-MASK_PATH = "./images/paterns/maskZona.png"
+MASK_PATH = "./images/paterns/MASKITA.png"
 
 # Lee la máscara en escala de grises
-mask = cv2.imread(MASK_PATH, 0)
+mask = cv2.imread(MASK_PATH, cv2.IMREAD_GRAYSCALE)
 # Obtén las propiedades iniciales de la máscara
 mask_height, mask_width = mask.shape
+_, binary_image = cv2.threshold(mask, 128, 255, cv2.THRESH_BINARY)
 
 # Obtén las estadísticas de los componentes conectados en la máscara
-connectedComponents = cv2.connectedComponentsWithStats(mask, 4, cv2.CV_32S)
+connectedComponents = cv2.connectedComponentsWithStats(binary_image, connectivity=8, ltype=cv2.CV_32S)
 spots = get_Parking_spots_boxes(connectedComponents)
+# print(spots)
 
 cap = cv2.VideoCapture(3)
 while True:
@@ -79,11 +81,11 @@ while True:
 
         # Verifica si el QR está dentro de algún cuadro de estacionamiento
         iou_threshold = 0.1  # Umbral de intersección
-        counter=0
+        # counter=0
         for spot in resized_spots:
-            if counter==0:
-                counter+=1
-                continue
+            # if counter==0:
+            #     counter+=1
+            #     pass
             spot_x1, spot_y1, spot_x2, spot_y2 = spot
             # Bounding box del QR
             qr_box = (x1, y1, x2, y2)
@@ -94,11 +96,8 @@ while True:
             if iou > iou_threshold:
                 # Marca el lugar de estacionamiento como ocupado
                 occupied_spots.append(spot)
-            else:
-                # Marca el lugar de estacionamiento vacío
-                if spot in occupied_spots:
-                    occupied_spots.remove(spot)
-            counter+=1
+          
+            # counter+=1
                 
 
 

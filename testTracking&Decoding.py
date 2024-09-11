@@ -7,7 +7,7 @@ from utils.preprocessFrame import preprocess_image
 qreader = QReader(model_size='n', min_confidence=0.2, reencode_to='utf-8')
 
 # Captura de video desde la cámara (cambia el índice si tienes múltiples cámaras)
-cap = cv2.VideoCapture(3)
+cap = cv2.VideoCapture(2)
 
 while True:
     # Captura un frame
@@ -28,11 +28,12 @@ while True:
     frameDecode = framePreprocess.copy()
 
     # Procesa las detecciones
-    for detection in detections:
+    for i,detection in enumerate(detections):
         decoded_qr = qreader.decode(image=framePreprocess, detection_result=detection)
         # Convertir las coordenadas a enteros
         x1, y1, x2, y2 = map(int, detection['bbox_xyxy'])
         confidence = detection['confidence']
+        identifier_text = f'QR {i+1}'
         
         if decoded_qr:
             # Dibuja el bounding box y el texto del QR decodificado en la copia del frame preprocesado
@@ -41,7 +42,7 @@ while True:
         
         # Dibuja el bounding box y la confianza en la copia del frame original
         cv2.rectangle(frameDetection, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        cv2.putText(frameDetection, f'{confidence:.2f}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+        cv2.putText(frameDetection, f'{identifier_text} - Confidence: {confidence:.2f}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
     # Muestra el frame con los bounding boxes de detección
     cv2.imshow('Detection', frameDetection)
