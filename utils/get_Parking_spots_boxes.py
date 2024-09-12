@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 def get_Parking_spots_boxes(connectedComponents):
     """
     Get the parking spots boxes.
@@ -14,3 +15,4 @@ def get_Parking_spots_boxes(connectedComponents):
         slots.append((x1,y1,x2,y2))
 
     return slots
+ 

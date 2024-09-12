@@ -3,7 +3,8 @@ import time
 from preprocessFrame import preprocess_image
 
 # Abre la cámara (3 en este caso, puede ser diferente dependiendo del sistema)
-cap = cv2.VideoCapture(3)
+# cap = cv2.VideoCapture(3)
+cap = cv2.VideoCapture(1)
 
 # # Ajustar la resolución de la cámara (opcional, puedes cambiar los valores según tus necesidades)
 # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)  # Ajustar el ancho de la imagen
@@ -41,7 +42,7 @@ for i in range(8):
 print("Foto tomada")
 if ret:
     # Define el nombre de la imagen a guardar
-    image_name = "zonePrueba.png"
+    image_name = "zonePrueba2.png"
     # framecito=preprocess_image(frame)
     
     # Guarda la imagen en el disco
