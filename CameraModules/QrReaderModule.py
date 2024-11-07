@@ -1,18 +1,12 @@
-import cv2
+# QrReaderModule.py
+from qreader import QReader
 
-class QRREADER:
-    def __init__(self):
-        self.qr = cv2.QRCodeDetector()
-        self.qrData = None
+class QrReaderModule:
+    def __init__(self, model_size='n', min_confidence=0.2):
+        self.qreader = QReader(model_size=model_size, min_confidence=min_confidence, reencode_to='utf-8')
 
-    def readQrCode(self, frame):
-        """Lee el código QR en el frame y dibuja una caja delimitadora si se detecta."""
-        qr_data, points, _ = self.qr.
-        if points is not None:
-            # Dibuja una caja delimitadora alrededor del código QR
-            points = points[0]  # points es una lista de puntos, tomamos el primero
-            for i in range(len(points)):
-                pt1 = tuple(map(int, points[i]))
-                pt2 = tuple(map(int, points[(i + 1) % 4]))
-                cv2.line(frame, pt1, pt2, (255, 255, 0), 5)  # Dibuja una línea verde
-        return qr_data
+    def detect_qr(self, image, is_bgr=True):
+        return self.qreader.detect(image=image, is_bgr=is_bgr)
+
+    def decode_qr(self, image, detection_result):
+        return self.qreader.decode(image=image, detection_result=detection_result)

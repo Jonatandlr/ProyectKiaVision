@@ -1,2 +1,3 @@
 venvForKia/*
 */__pycache__/*
+.env
